@@ -43,6 +43,7 @@ model SubCategory {
 model Asset {
   id              Int         @id @default(autoincrement())
   name            String      @unique
+  price           Float       @default(0)
   subCategory     SubCategory @relation(fields: [subCategoryId], references: [id])
   subCategoryId   Int
   accountRows     AccountRow[]

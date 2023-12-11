@@ -3,13 +3,6 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  //   const user = await prisma.user.create({
-  //     data: {
-  //       name: 'Alice',
-  //       email: 'alice@prisma.io'
-  //     }
-  //   })
-  //   console.log('🚀 ~ file: script.ts:12 ~ main ~ user:', user)
   //   const users = await prisma.user.findMany()
   //   console.log('🚀 ~ file: script.ts:14 ~ main ~ users:', users)
   //   const user = await prisma.user.create({
@@ -38,15 +31,24 @@ async function main() {
   //     }
   //   })
 
-  const xxx = await prisma.accountRow.create({
-    data: {
-      qty: 2,
-      accountId: 1,
-      assetId: 1
+  const data = await prisma.account.findMany({
+    include: {
+      accountRows: {
+        include: {
+          asset: {
+            include: {
+              subCategory: {
+                include: {
+                  mainCategory: {}
+                }
+              }
+            }
+          }
+        }
+      }
     }
   })
-
-  console.log('🚀 ~ file: script.ts:46 ~ main ~ xxx:', xxx)
+  console.dir(data, { depth: null })
 }
 
 main()
