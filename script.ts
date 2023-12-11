@@ -10,10 +10,8 @@ async function main() {
   //     }
   //   })
   //   console.log('🚀 ~ file: script.ts:12 ~ main ~ user:', user)
-
   //   const users = await prisma.user.findMany()
   //   console.log('🚀 ~ file: script.ts:14 ~ main ~ users:', users)
-
   //   const user = await prisma.user.create({
   //     data: {
   //       name: 'Bob',
@@ -25,15 +23,30 @@ async function main() {
   //       }
   //     }
   //   })
+  //   const usersWithPosts = await prisma.user.findMany({
+  //     include: {
+  //       posts: true
+  //     },
+  //     where: { id: 1 }
+  //   })
+  //   console.dir(usersWithPosts, { depth: null })
 
-  const usersWithPosts = await prisma.user.findMany({
-    include: {
-      posts: true
-    },
-    where: { id: 1 }
+  ////////////////
+  //   const asset = await prisma.mainCat.create({
+  //     data: {
+  //       name: 'bourse'
+  //     }
+  //   })
+
+  const xxx = await prisma.accountRow.create({
+    data: {
+      qty: 2,
+      accountId: 1,
+      assetId: 1
+    }
   })
 
-  console.dir(usersWithPosts, { depth: null })
+  console.log('🚀 ~ file: script.ts:46 ~ main ~ xxx:', xxx)
 }
 
 main()

@@ -26,7 +26,7 @@ datasource db {
 //   authorId  Int
 // }
 
-model MainCat {
+model MainCategory {
   id            Int     @id @default(autoincrement())
   name          String  @unique
   subcategories SubCategory[]
@@ -35,7 +35,7 @@ model MainCat {
 model SubCategory {
   id              Int     @id @default(autoincrement())
   name            String  @unique
-  mainCategory    MainCat @relation(fields: [mainCategoryId], references: [id])
+  mainCategory    MainCategory @relation(fields: [mainCategoryId], references: [id])
   mainCategoryId  Int
   assets          Asset[]
 }
