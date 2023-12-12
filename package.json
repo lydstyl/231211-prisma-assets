@@ -16,6 +16,9 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.0"
+    "@fast-csv/format": "^4.3.5",
+    "@fast-csv/parse": "^4.3.6",
+    "@prisma/client": "^5.7.0",
+    "fast-csv": "^4.3.6"
   }
 }
