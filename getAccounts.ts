@@ -2,26 +2,39 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function getAccounts() {
-  //   const user = await prisma.user.create({
-  //     data: {
-  //       name: 'Bob',
-  //       email: 'bob@prisma.io',
-  //       posts: {
-  //         create: {
-  //           title: 'Hello World'
-  //         }
-  //       }
-  //     }
-  //   })
-  //   const usersWithPosts = await prisma.user.findMany({
-  //     include: {
-  //       posts: true
-  //     },
-  //     where: { id: 1 }
-  //   })
-  //   console.dir(usersWithPosts, { depth: null })
+export type GetAssets = ({
+  accountRows: ({
+    account: {
+      name: string
+    }
+  } & {
+    id: number
+    qty: number
+    assetId: number
+    accountId: number
+  })[]
 
+  subCategory:
+    | ({
+        mainCategory: {
+          name: string
+        } | null
+      } & {
+        id: number
+        name: string
+        mainCategoryId: number | null
+      })
+    | null
+} & {} & {
+  id: number
+  name: string
+  sourceId: string | null
+  sourceName: string | null
+  price: number
+  subCategoryId: number | null
+})[]
+
+export async function getAccounts() {
   const data = await prisma.account.findMany({
     include: {
       accountRows: {
@@ -46,9 +59,30 @@ export const runGetAccounts = async () => {
   try {
     const data = await getAccounts()
     await prisma.$disconnect()
-    console.dir(data, { depth: null })
+
+    return data
   } catch (error) {
     console.log('🚀 ~ file: 2updateDegiroInDB.ts:69 ~ xxx ~ error:', error)
+    await prisma.$disconnect()
+    process.exit(1)
+  }
+}
+
+export const getAssets = async () => {
+  try {
+    const data = await prisma.asset.findMany({
+      include: {
+        accountRows: {
+          include: { account: { select: { name: true } } }
+        },
+        subCategory: { include: { mainCategory: { select: { name: true } } } }
+      }
+    })
+
+    await prisma.$disconnect()
+    return data
+  } catch (error) {
+    console.log('🚀 ~ file: getAccounts.ts:74 ~ getAssets ~ error:', error)
     await prisma.$disconnect()
     process.exit(1)
   }
