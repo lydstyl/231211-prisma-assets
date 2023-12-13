@@ -1,6 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as csv from 'fast-csv'
+import dotenv from 'dotenv'
+
+dotenv.config() // Load environment variables from .env file
 
 type StandartRow = {
   id: string
@@ -18,10 +21,11 @@ type DegiroRow = {
   Devise: string
 }
 
+const csvName = process.env.DEGIRO_CSV as string
 const rows: DegiroRow[] = []
 
 export const parseDegioCSV = new Promise((resolve, reject) => {
-  fs.createReadStream(path.resolve(__dirname, 'csv', 'Portfolio.csv'))
+  fs.createReadStream(path.resolve(__dirname, 'csv', csvName))
     .pipe(csv.parse({ headers: true }))
     .on('error', (error) => reject(error))
     .on('data', (row) => {
