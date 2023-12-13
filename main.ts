@@ -1,16 +1,11 @@
 import { parseDegioCSV } from './degiroCsvParser'
+import { updateDBWithDegiro } from './degiro/updateDBWithDegiro'
 ;(async function run() {
   try {
-    const standardisedDegiroRows = await parseDegioCSV
-    console.log(
-      '🚀 ~ file: degiroCsvParser.ts:70 ~ run ~ standardisedDegiroRows:',
-      standardisedDegiroRows
-    )
+    const standardisedDegiroRows = await parseDegioCSV()
 
     // UPDATE DB
-    // use degiroCsvParser to update Degiro assets
-    // remove all Degiro account rows
-    // add new Degiro account rows
+    await updateDBWithDegiro(standardisedDegiroRows)
 
     // UPDATE DB
     // do the same with PEACsvParser

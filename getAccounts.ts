@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-async function main() {
+export async function main() {
   //   const users = await prisma.user.findMany()
   //   console.log('🚀 ~ file: script.ts:14 ~ main ~ users:', users)
   //   const user = await prisma.user.create({
@@ -48,15 +48,18 @@ async function main() {
       }
     }
   })
-  console.dir(data, { depth: null })
+  // console.dir(data, { depth: null })
+  return data
 }
 
-main()
-  .then(async () => {
+export const runMain = async () => {
+  try {
+    const data = await main()
     await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
+    console.dir(data, { depth: null })
+  } catch (error) {
+    console.log('🚀 ~ file: 2updateDegiroInDB.ts:69 ~ xxx ~ error:', error)
     await prisma.$disconnect()
     process.exit(1)
-  })
+  }
+}
