@@ -33,8 +33,8 @@ model Asset {
   sourceId      String?      @unique
   sourceName    String?      @unique
   price         Float        @default(0)
-  subCategory   SubCategory  @relation(fields: [subCategoryId], references: [id])
-  subCategoryId Int
+  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int?
   accountRows   AccountRow[]
 }
 

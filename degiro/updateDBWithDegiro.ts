@@ -1,4 +1,5 @@
 import { StandartRow } from '../degiroCsvParser'
+import { createOrUpdateAssetsFromDegiro } from './createOrUpdateAssetsFromDegiro'
 import { removeAllDegiroAccountRows } from './removeAllDegiroAccountRows'
 
 export const updateDBWithDegiro = async (
@@ -6,7 +7,7 @@ export const updateDBWithDegiro = async (
 ) => {
   try {
     await removeAllDegiroAccountRows(standardisedDegiroRows)
-    // const addNewAssetsFromDegiroCSV = async () => {}
+    await createOrUpdateAssetsFromDegiro(standardisedDegiroRows)
     // const updateDegiroAssetsWithNewPrice = async () => {}
     // const addNewDegiroAccountRows = async () => {}
   } catch (error) {
