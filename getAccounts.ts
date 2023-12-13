@@ -2,9 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function main() {
-  //   const users = await prisma.user.findMany()
-  //   console.log('🚀 ~ file: script.ts:14 ~ main ~ users:', users)
+export async function getAccounts() {
   //   const user = await prisma.user.create({
   //     data: {
   //       name: 'Bob',
@@ -24,13 +22,6 @@ export async function main() {
   //   })
   //   console.dir(usersWithPosts, { depth: null })
 
-  ////////////////
-  //   const asset = await prisma.mainCat.create({
-  //     data: {
-  //       name: 'bourse'
-  //     }
-  //   })
-
   const data = await prisma.account.findMany({
     include: {
       accountRows: {
@@ -48,13 +39,12 @@ export async function main() {
       }
     }
   })
-  // console.dir(data, { depth: null })
   return data
 }
 
-export const runMain = async () => {
+export const runGetAccounts = async () => {
   try {
-    const data = await main()
+    const data = await getAccounts()
     await prisma.$disconnect()
     console.dir(data, { depth: null })
   } catch (error) {
@@ -63,3 +53,5 @@ export const runMain = async () => {
     process.exit(1)
   }
 }
+
+// runGetAccounts()

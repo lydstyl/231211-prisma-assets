@@ -43,6 +43,7 @@ export const parseDegioCSV = (): Promise<StandartRow[]> =>
             qty = +row['Montant en EUR'].replace(',', '.')
             price = 1
           } else {
+            qty = +row.Quantité
             if (!row.Devise.includes('EUR')) {
               price =
                 +row['Montant en EUR'].replace(',', '.') /
@@ -55,7 +56,7 @@ export const parseDegioCSV = (): Promise<StandartRow[]> =>
           return {
             id,
             name: row.Produit,
-            qty: qty ? qty : +row.Quantité,
+            qty,
             price
           }
         })
