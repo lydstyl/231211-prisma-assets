@@ -10,56 +10,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id    Int     @id @default(autoincrement())
-//   email String  @unique
-//   name  String?
-//   posts Post[]
-// }
-
-// model Post {
-//   id        Int     @id @default(autoincrement())
-//   title     String
-//   content   String?
-//   published Boolean @default(false)
-//   author    User    @relation(fields: [authorId], references: [id])
-//   authorId  Int
-// }
+// npx prisma migrate dev --name init
+// npx prisma studio
 
 model MainCategory {
-  id            Int     @id @default(autoincrement())
-  name          String  @unique
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
   subcategories SubCategory[]
 }
 
 model SubCategory {
-  id              Int     @id @default(autoincrement())
-  name            String  @unique
-  mainCategory    MainCategory @relation(fields: [mainCategoryId], references: [id])
-  mainCategoryId  Int
-  assets          Asset[]
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  mainCategory   MainCategory @relation(fields: [mainCategoryId], references: [id])
+  mainCategoryId Int
+  assets         Asset[]
 }
 
 model Asset {
-  id              Int         @id @default(autoincrement())
-  name            String      @unique
-  price           Float       @default(0)
-  subCategory     SubCategory @relation(fields: [subCategoryId], references: [id])
-  subCategoryId   Int
-  accountRows     AccountRow[]
+  id            Int          @id @default(autoincrement())
+  name          String       @unique
+  sourceId      String?      @unique
+  sourceName    String?      @unique
+  price         Float        @default(0)
+  subCategory   SubCategory  @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int
+  accountRows   AccountRow[]
 }
 
 model Account {
-  id              Int         @id @default(autoincrement())
-  name            String      @unique
-  accountRows     AccountRow[]
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  accountRows AccountRow[]
 }
 
 model AccountRow {
-  id        Int   @id @default(autoincrement())
-  qty       Int     
-  asset     Asset @relation(fields: [assetId], references: [id])
-  assetId   Int
+  id      Int   @id @default(autoincrement())
+  qty     Int   @default(0)
+  asset   Asset @relation(fields: [assetId], references: [id])
+  assetId Int
 
   account   Account @relation(fields: [accountId], references: [id])
   accountId Int
