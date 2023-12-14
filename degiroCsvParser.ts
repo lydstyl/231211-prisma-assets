@@ -12,6 +12,7 @@ export type StandartRow = {
   price: number
 }
 
+// Produit,Ticker/ISIN,Quantité,Clôture,Devise,Montant en EUR
 type DegiroRow = {
   'Ticker/ISIN': string
   Produit: string
