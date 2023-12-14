@@ -14,7 +14,7 @@ type DegiroRow = {
   COURS: string
 }
 
-const csvName = process.env.DEGIRO_CSV as string //////
+const csvName = process.env.PEA_CSV as string
 const rows: DegiroRow[] = []
 
 export const parsePeaCsv = (): Promise<StandartRow[]> =>
