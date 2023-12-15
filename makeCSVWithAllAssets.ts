@@ -34,7 +34,7 @@ export const makeCSVWithAllAssets = (assets: GetAssets) => {
   //   newAssets
   // )
 
-  createCSV(newAssets)
+  createCSVForAllAssets(newAssets)
 }
 
 type CsvFileOpts = {
@@ -97,18 +97,7 @@ class CsvFile {
   }
 }
 
-async function createCSV(assets: AssetsForCSV) {
-  //   // 1. create the csv
-  //   csvFile
-  //     .create(assets)
-  //     .then(() => csvFile.read())
-  //     .then((contents) => {
-  //       console.log(`${contents}`)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err.stack)
-  //       process.exit(1)
-  //     })
+async function createCSVForAllAssets(assets: AssetsForCSV) {
   try {
     const csvFile = new CsvFile({
       path: path.resolve(__dirname, 'append.tmp.csv'),
@@ -126,6 +115,24 @@ async function createCSV(assets: AssetsForCSV) {
     })
 
     await csvFile.create(assets)
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+}
+
+type CSVValues = {
+  [key: string]: string
+}
+export async function createCSV(headers: string[], csvValues: CSVValues[]) {
+  try {
+    const csvFile = new CsvFile({
+      path: path.resolve(__dirname, 'append.tmp.csv'),
+      // headers to write
+      headers
+    })
+
+    await csvFile.create(csvValues)
   } catch (err) {
     console.error(err)
     process.exit(1)
