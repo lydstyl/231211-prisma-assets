@@ -9,10 +9,10 @@ import { updateDBWithAccount } from './accounts/updateDBWithAccount'
 import parsePeaCsv from './pea/peaCSVParser'
 
 const dbAccountUpdaters = [
-  // {
-  //   account: 'Degiro',
-  //   sourceData: parseDegioCSV
-  // },
+  {
+    account: 'Degiro',
+    sourceData: parseDegioCSV
+  },
   {
     account: 'PEA',
     sourceData: parsePeaCsv
@@ -34,17 +34,17 @@ const dbAccountUpdaters = [
     ////////////////////////
     // // create or update category and subcategories WARNING : this remove manuals connections between assets and sub categories
     // await createOrUpdateAllCategories(allCategories)
-
-    dbAccountUpdaters.forEach(async (dbAccountUpdater) => {
-      const standardisedRows = await dbAccountUpdater.sourceData()
-      await updateDBWithAccount(dbAccountUpdater.account, standardisedRows)
-    })
-
+    ////////////////////////
+    // dbAccountUpdaters.forEach(async (dbAccountUpdater) => {
+    //   const standardisedRows = await dbAccountUpdater.sourceData()
+    //   await updateDBWithAccount(dbAccountUpdater.account, standardisedRows)
+    // })
     ////////////////////////
     // // UPDATE DB
     // // do the same with manualDBUpdater for other assets (make sur all accounts from cash vision are done)
-
+    ////////////////////////
     const data = await getAssets()
+    console.log('🚀 ~ file: main.ts:47 ~ run ~ data:', data)
     makeCSVWithAllAssets(data)
   } catch (error) {
     console.log('🚀 ~ file: degiroCsvParser.ts:72 ~ run ~ error:', error)

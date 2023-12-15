@@ -35,3 +35,8 @@ Avec la fonctionalité de tableau croisée dynamique d'un tableur + la création
 ## Lancer le script
 
 - npx ts-node main.ts
+
+# Todo
+
+- regler le problème des montants au format anglais dans le csv exemple 12.34 au lieu de 12,34 pour que ça fonctionne bien dans un tableur.
+- créer des tests unitaires

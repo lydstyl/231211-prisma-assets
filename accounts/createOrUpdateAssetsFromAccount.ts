@@ -2,11 +2,11 @@ import { PrismaClient } from '@prisma/client'
 import { StandartRow } from '../degiroCsvParser'
 import { findAccountId } from './findAccountId'
 
+const prisma = new PrismaClient()
 export const createOrUpdateAssetsFromAccount = async (
-    accountName: string,
+  accountName: string,
   standardisedRows: StandartRow[]
 ) => {
-  const prisma = new PrismaClient()
   try {
     const accountId = await findAccountId(accountName)
 
@@ -42,8 +42,11 @@ export const createOrUpdateAssetsFromAccount = async (
 
     await prisma.$disconnect()
   } catch (error) {
-    console.log("🚀 ~ file: createOrUpdateAssetsFromAccount.ts:45 ~ error:", error)
+    console.log(
+      '🚀 ~ file: createOrUpdateAssetsFromAccount.ts:45 ~ error:',
+      error
     )
+
     await prisma.$disconnect()
     process.exit(1)
   }

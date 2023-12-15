@@ -62,7 +62,7 @@ export const runGetAccounts = async () => {
 
     return data
   } catch (error) {
-    console.log('🚀 ~ file: 2updateDegiroInDB.ts:69 ~ xxx ~ error:', error)
+    console.log('🚀 ~ file: getAccounts.ts:65 ~ runGetAccounts ~ error:', error)
     await prisma.$disconnect()
     process.exit(1)
   }
@@ -80,10 +80,11 @@ export const getAssets = async () => {
     })
 
     await prisma.$disconnect()
+    console.log('🚀 ~ file: getAccounts.ts:89 ~ getAssets ~ data:', data)
     return data
   } catch (error) {
-    console.log('🚀 ~ file: getAccounts.ts:74 ~ getAssets ~ error:', error)
     await prisma.$disconnect()
+    console.log('🚀 ~ file: getAccounts.ts:74 ~ getAssets ~ error:', error)
     process.exit(1)
   }
 }

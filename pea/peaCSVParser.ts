@@ -17,10 +17,21 @@ type DegiroRow = {
 const csvName = process.env.PEA_CSV as string
 const rows: DegiroRow[] = []
 
+export const parseQty = (qty: string) => {
+  return +qty.trim().replace(',', '.')
+}
+export const parsePrice = (price: string) => {
+  if (!price.includes('€')) {
+    throw new Error("Attention : le cours n'est pas en € dans le CSV du PEA !")
+  }
+
+  return +price.replace(',', '.').replace('€', '').trim()
+}
+
 export const parsePeaCsv = (): Promise<StandartRow[]> =>
   new Promise((resolve, reject) => {
-    fs.createReadStream(path.resolve(__dirname, 'csv', csvName))
-      .pipe(csv.parse({ headers: true }))
+    fs.createReadStream(path.resolve(__dirname, '../csv', csvName))
+      .pipe(csv.parse({ headers: true, delimiter: ';' }))
       .on('error', (error) => reject(error))
       .on('data', (row) => {
         rows.push(row)
@@ -30,8 +41,8 @@ export const parsePeaCsv = (): Promise<StandartRow[]> =>
           return {
             id: row.ISIN,
             name: row.Nom,
-            qty: +row.QUANTITE,
-            price: +row.COURS.replace(',', '.')
+            qty: parseQty(row.QUANTITE),
+            price: parsePrice(row.COURS)
           }
         })
         resolve(standardised)

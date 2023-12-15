@@ -29,10 +29,10 @@ export const makeCSVWithAllAssets = (assets: GetAssets) => {
     account: asset.accountRows[0]?.account.name
   }))
 
-  console.log(
-    '🚀 ~ file: makeCSVWithAllAssets.ts:27 ~ newAssets ~ newAssets:',
-    newAssets
-  )
+  // console.log(
+  //   '🚀 ~ file: makeCSVWithAllAssets.ts:27 ~ newAssets ~ newAssets:',
+  //   newAssets
+  // )
 
   createCSV(newAssets)
 }
@@ -49,7 +49,7 @@ class CsvFile {
     options: FormatterOptionsArgs<Row, Row>
   ): Promise<void> {
     return new Promise((res, rej) => {
-      writeToStream(stream, rows, options)
+      writeToStream(stream, rows, { ...options, delimiter: ';' })
         .on('error', (err: Error) => rej(err))
         .on('finish', () => res())
     })
