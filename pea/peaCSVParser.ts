@@ -14,9 +14,6 @@ type DegiroRow = {
   COURS: string
 }
 
-const csvName = process.env.PEA_CSV as string
-const rows: DegiroRow[] = []
-
 export const parseQty = (qty: string) => {
   return +qty.trim().replace(',', '.')
 }
@@ -30,7 +27,11 @@ export const parsePrice = (price: string) => {
 
 export const parsePeaCsv = (): Promise<StandartRow[]> =>
   new Promise((resolve, reject) => {
-    fs.createReadStream(path.resolve(__dirname, '../csv', csvName))
+    const rows: DegiroRow[] = []
+
+    fs.createReadStream(
+      path.resolve(__dirname, '../csv', process.env.PEA_CSV as string)
+    )
       .pipe(csv.parse({ headers: true, delimiter: ';' }))
       .on('error', (error) => reject(error))
       .on('data', (row) => {
