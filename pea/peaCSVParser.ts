@@ -15,7 +15,11 @@ type DegiroRow = {
 }
 
 export const parseQty = (qty: string) => {
-  return +qty.trim().replace(',', '.')
+  if (!qty) {
+    return 0
+  }
+
+  return +qty.trim().replace(' ', '').replace(',', '.')
 }
 export const parsePrice = (price: string) => {
   if (!price.includes('€')) {

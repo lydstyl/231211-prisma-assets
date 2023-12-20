@@ -9,6 +9,7 @@ import { updateDBWithAccount } from './accounts/updateDBWithAccount'
 import parsePeaCsv from './pea/peaCSVParser'
 import updateDBWithManualBankAccounts from './updateDBWithManualBankAccounts'
 import updateDBWithManualAssets from './updateDBWithManualAssets'
+import updateDBWithManualAssets2 from './updateDBWithManualAssets2'
 
 const dbAccountUpdaters = [
   {
@@ -44,8 +45,10 @@ const dbAccountUpdaters = [
     //   await updateDBWithAccount(dbAccountUpdater.account, standardisedRows)
     // })
     ////////////////////////
-    // await updateDBWithManualBankAccounts()
-    // await updateDBWithManualAssets()
+    // // await updateDBWithManualBankAccounts()
+    // // await updateDBWithManualAssets()
+    // // this one replace the 2 above
+    // await updateDBWithManualAssets2()
     ////////////////////////
     const allAssets = await getAssets()
     makeCSVWithAllAssets(allAssets)
