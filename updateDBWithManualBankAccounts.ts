@@ -92,13 +92,13 @@ const updateDBWithManualBankAccounts = async () => {
       })
 
       await prisma.$disconnect()
-      return account?.id
     })
   } catch (error) {
     console.log(
-      '🚀 ~ file: createOrUpdateAssetsFromDegiro.ts:63 ~ findAccountId ~ error:',
+      '🚀 ~ file: updateDBWithManualBankAccounts.ts:98 ~ updateDBWithManualBankAccounts ~ error:',
       error
     )
+
     await prisma.$disconnect()
     process.exit(1)
   }

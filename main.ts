@@ -20,6 +20,7 @@ const dbAccountUpdaters = [
     sourceData: parsePeaCsv
   }
 
+  //////////////////////// todo with API
   // {
   //   account: 'Bitstamp',
   //   sourceData: getDataFromBitstampAPI
@@ -44,10 +45,10 @@ const dbAccountUpdaters = [
     // })
     ////////////////////////
     // await updateDBWithManualBankAccounts()
-    await updateDBWithManualAssets()
+    // await updateDBWithManualAssets()
     ////////////////////////
-    // const allAssets = await getAssets()
-    // makeCSVWithAllAssets(allAssets)
+    const allAssets = await getAssets()
+    makeCSVWithAllAssets(allAssets)
   } catch (error) {
     console.log('🚀 ~ file: degiroCsvParser.ts:72 ~ run ~ error:', error)
   }
