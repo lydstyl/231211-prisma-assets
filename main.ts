@@ -8,6 +8,7 @@ import { makeCSVWithAllAssets } from './makeCSVWithAllAssets'
 import { updateDBWithAccount } from './accounts/updateDBWithAccount'
 import parsePeaCsv from './pea/peaCSVParser'
 import updateDBWithManualBankAccounts from './updateDBWithManualBankAccounts'
+import updateDBWithManualAssets from './updateDBWithManualAssets'
 
 const dbAccountUpdaters = [
   {
@@ -42,13 +43,11 @@ const dbAccountUpdaters = [
     //   await updateDBWithAccount(dbAccountUpdater.account, standardisedRows)
     // })
     ////////////////////////
-    // // UPDATE DB
-    // // do the same with manualDBUpdater for other assets (make sur all accounts from cash vision are done)
-    await updateDBWithManualBankAccounts()
+    // await updateDBWithManualBankAccounts()
+    await updateDBWithManualAssets()
     ////////////////////////
-    // const data = await getAssets()
-    // console.log('🚀 ~ file: main.ts:47 ~ run ~ data:', data)
-    // makeCSVWithAllAssets(data)
+    // const allAssets = await getAssets()
+    // makeCSVWithAllAssets(allAssets)
   } catch (error) {
     console.log('🚀 ~ file: degiroCsvParser.ts:72 ~ run ~ error:', error)
   }

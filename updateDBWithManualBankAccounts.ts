@@ -3,7 +3,8 @@ import * as csv from 'fast-csv'
 import dotenv from 'dotenv'
 import path from 'path'
 import { StandartRow } from './degiroCsvParser'
-import { parseQty, parsePrice } from './pea/peaCSVParser'
+import { parseQty } from './pea/peaCSVParser'
+import { PrismaClient } from '@prisma/client'
 
 dotenv.config()
 
@@ -33,16 +34,74 @@ export const parseManualBankAccountsCSV = (): Promise<StandartRow[]> =>
 
 const updateDBWithManualBankAccounts = async () => {
   // parse csv
-  // create or update accounts and keep ID
-  // create or update asset with price and name is "CASH " + accountName to upper case and keep ID
-  // delete all account rows of each bank account of this csv
-  // create all account rows with qty assetId and accountId
+  const standardisedmanualBankAccounts = await parseManualBankAccountsCSV()
 
-  const manualBankAccounts = await parseManualBankAccountsCSV()
-  console.log(
-    '🚀 ~ file: updateDBWithManualBankAccounts.ts:45 ~ updateDBWithManualBankAccounts ~ manualBankAccounts:',
-    manualBankAccounts
-  )
+  const prisma = new PrismaClient()
+  try {
+    // find sub category id of cash en banque
+    const dbSubCategory = await prisma.subCategory.findFirst({
+      where: {
+        name: 'cash en banque'
+      }
+    })
+
+    standardisedmanualBankAccounts.forEach(async (account) => {
+      // create or update accounts and keep ID
+      const dbAccount = await prisma.account.upsert({
+        where: {
+          name: account.name
+        },
+        create: {
+          name: account.name
+        },
+        update: {
+          name: account.name
+        }
+      })
+
+      // create or update asset with price and name is "CASH " + accountName to upper case and keep ID
+      const dbAssset = await prisma.asset.upsert({
+        where: {
+          name: 'CASH ' + account.name.toUpperCase()
+        },
+        create: {
+          name: 'CASH ' + account.name.toUpperCase(),
+          price: account.price,
+          subCategoryId: dbSubCategory?.id || null
+        },
+        update: {
+          name: 'CASH ' + account.name.toUpperCase(),
+          price: account.price // should always be 1 € ?
+        }
+      })
+
+      // delete all account rows of each bank account of this csv
+      await prisma.accountRow.deleteMany({
+        where: {
+          accountId: dbAccount.id
+        }
+      })
+
+      // re create all account rows with qty assetId and accountId
+      const dbAccountRow = await prisma.accountRow.create({
+        data: {
+          accountId: dbAccount.id,
+          assetId: dbAssset.id,
+          qty: account.qty
+        }
+      })
+
+      await prisma.$disconnect()
+      return account?.id
+    })
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: createOrUpdateAssetsFromDegiro.ts:63 ~ findAccountId ~ error:',
+      error
+    )
+    await prisma.$disconnect()
+    process.exit(1)
+  }
 }
 
 export default updateDBWithManualBankAccounts
