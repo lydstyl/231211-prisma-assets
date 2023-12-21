@@ -22,7 +22,7 @@ const dbAccountUpdaters = [
     sourceData: parsePeaCsv
   }
 
-  //////////////////////// todo with API
+  //////////////////////// todo with API then make unit tests
   // {
   //   account: 'Bitstamp',
   //   sourceData: getDataFromBitstampAPI
