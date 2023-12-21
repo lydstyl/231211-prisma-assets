@@ -48,7 +48,7 @@ const dbAccountUpdaters = [
     // // await updateDBWithManualBankAccounts()
     // // await updateDBWithManualAssets()
     // // this one replace the 2 above
-    // await updateDBWithManualAssets2()
+    await updateDBWithManualAssets2()
     ////////////////////////
     const allAssets = await getAssets()
     makeCSVWithAllAssets(allAssets)

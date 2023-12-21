@@ -46,7 +46,7 @@ model Account {
 
 model AccountRow {
   id      Int   @id @default(autoincrement())
-  qty     Int   @default(0)
+  qty     Float @default(0)
   asset   Asset @relation(fields: [assetId], references: [id])
   assetId Int
 

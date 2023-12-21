@@ -2,7 +2,6 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { FormatterOptionsArgs, Row, writeToStream } from '@fast-csv/format'
 
-import { accounts } from './constancies'
 import { GetAssets } from './getAccounts'
 
 type AssetsForCSV = {
@@ -28,11 +27,6 @@ export const makeCSVWithAllAssets = (assets: GetAssets) => {
     qty: asset.accountRows[0]?.qty,
     account: asset.accountRows[0]?.account.name
   }))
-
-  // console.log(
-  //   '🚀 ~ file: makeCSVWithAllAssets.ts:27 ~ newAssets ~ newAssets:',
-  //   newAssets
-  // )
 
   createCSVForAllAssets(newAssets)
 }

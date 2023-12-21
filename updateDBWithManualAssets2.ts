@@ -52,45 +52,55 @@ const updateDBWithManualAssets2 = async () => {
   const prisma = new PrismaClient()
   try {
     // parse csv
-    const standardisedmanualAssets = await parseManualAssetsCSV2()
+    const standardisedmanualAssets = await await parseManualAssetsCSV2()
 
-    standardisedmanualAssets.forEach(async (csvAssetRow) => {
-      // create or update accounts
-      const dbAccount = await prisma.account.upsert({
-        where: {
-          name: csvAssetRow.account
-        },
-        create: {
-          name: csvAssetRow.account
-        },
-        update: {
-          name: csvAssetRow.account
+    standardisedmanualAssets
+      // .filter((csvRow) => csvRow.asset === 'ETH')
+      .forEach(async (csvAssetRow) => {
+        // create or update accounts
+        const dbAccount = await prisma.account.upsert({
+          where: {
+            name: csvAssetRow.account
+          },
+          create: {
+            name: csvAssetRow.account
+          },
+          update: {
+            name: csvAssetRow.account
+          }
+        })
+
+        // create or update assets
+        if (csvAssetRow.price === 0) {
+          var dbAsset = await prisma.asset.upsert({
+            where: { name: csvAssetRow.asset },
+            create: { name: csvAssetRow.asset },
+            update: { name: csvAssetRow.asset }
+          })
+        } else {
+          var dbAsset = await prisma.asset.upsert({
+            where: { name: csvAssetRow.asset },
+            create: { name: csvAssetRow.asset, price: csvAssetRow.price },
+            update: { name: csvAssetRow.asset, price: csvAssetRow.price }
+          })
         }
-      })
 
-      // create or update assets
-      const dbAsset = await prisma.asset.upsert({
-        where: { name: csvAssetRow.asset },
-        create: { name: csvAssetRow.asset, price: csvAssetRow.price },
-        update: { name: csvAssetRow.asset, price: csvAssetRow.price }
-      })
+        // remove all account rows with accounts id
+        await prisma.accountRow.deleteMany({
+          where: {
+            accountId: dbAccount.id
+          }
+        })
 
-      // remove all account rows with accounts id
-      await prisma.accountRow.deleteMany({
-        where: {
-          accountId: dbAccount.id
-        }
+        // create all account rows with accounts id
+        await prisma.accountRow.create({
+          data: {
+            qty: csvAssetRow.qty,
+            accountId: dbAccount.id,
+            assetId: dbAsset.id
+          }
+        })
       })
-
-      // create all account rows with accounts id
-      await prisma.accountRow.create({
-        data: {
-          qty: csvAssetRow.qty,
-          accountId: dbAccount.id,
-          assetId: dbAsset.id
-        }
-      })
-    })
 
     await prisma.$disconnect()
   } catch (error) {

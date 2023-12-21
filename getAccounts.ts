@@ -80,7 +80,6 @@ export const getAssets = async () => {
     })
 
     await prisma.$disconnect()
-    console.log('🚀 ~ file: getAccounts.ts:89 ~ getAssets ~ data:', data)
     return data
   } catch (error) {
     await prisma.$disconnect()

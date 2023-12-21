@@ -15,7 +15,7 @@ type DegiroRow = {
 }
 
 export const parseQty = (qty: string) => {
-  if (!qty) {
+  if (!qty && +qty !== 0) {
     return 0
   }
 
