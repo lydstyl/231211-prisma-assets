@@ -36,7 +36,7 @@ type CsvFileOpts = {
   path: string
 }
 
-class CsvFile {
+export class CsvFile {
   static write(
     stream: NodeJS.WritableStream,
     rows: Row[],

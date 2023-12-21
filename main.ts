@@ -10,6 +10,7 @@ import parsePeaCsv from './pea/peaCSVParser'
 import updateDBWithManualBankAccounts from './updateDBWithManualBankAccounts'
 import updateDBWithManualAssets from './updateDBWithManualAssets'
 import updateDBWithManualAssets2 from './updateDBWithManualAssets2'
+import makeCSVWithAllAccountRows from './makeCSVWithAllAccountRows'
 
 const dbAccountUpdaters = [
   {
@@ -34,24 +35,26 @@ const dbAccountUpdaters = [
 
 ;(async function run() {
   try {
-    ////////////////////////
+    //////////////////////// STEP 0 TODO WITH AN EMPTY DB OR AVOID THIS STEP
     // await createOrUpdateAccounts(accountNames)
-    ////////////////////////
     // // create or update category and subcategories WARNING : this remove manuals connections between assets and sub categories
     // await createOrUpdateAllCategories(allCategories)
-    ////////////////////////
+
+    //////////////////////// STEP 1 use dbAccountUpdaters
     // dbAccountUpdaters.forEach(async (dbAccountUpdater) => {
     //   const standardisedRows = await dbAccountUpdater.sourceData()
     //   await updateDBWithAccount(dbAccountUpdater.account, standardisedRows)
     // })
-    ////////////////////////
-    // // await updateDBWithManualBankAccounts()
-    // // await updateDBWithManualAssets()
-    // // this one replace the 2 above
-    await updateDBWithManualAssets2()
-    ////////////////////////
-    const allAssets = await getAssets()
-    makeCSVWithAllAssets(allAssets)
+
+    //////////////////////// STEP 2 create a CSV with Prisma Asset YYYY speadsheets then use it to update DB
+    // await updateDBWithManualAssets2()
+
+    //////////////////////// STEP 3 create the csv then go to Prisma Asset YYYY speadsheets and import it
+    await makeCSVWithAllAccountRows()
+
+    //////////////////////// STEP 4 make TCD and donuts in Prisma Asset YYYY speadsheets
+
+    //////////////////////// STEP 5 take action for a re-arbitration
   } catch (error) {
     console.log('🚀 ~ file: degiroCsvParser.ts:72 ~ run ~ error:', error)
   }
