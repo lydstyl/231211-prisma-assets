@@ -2,33 +2,131 @@ import dotenv from 'dotenv'
 import { Spot } from '@binance/connector-typescript'
 dotenv.config()
 
-const BASE_URL = 'https://api.binance.com'
+const watchedAssets = ['USDT', 'USDC', 'DAI', 'BTC']
+const blackListAssets = [
+  'BNB',
+  'XLM',
+  'LSK',
+  'XMR',
+  'IOTA',
+  'EOS',
+  'EDG',
+  'EON',
+  'ADD',
+  'MEETONE',
+  'ATD',
+  'EOP'
+]
 
-// const client = new Spot(API_KEY, API_SECRET, { baseURL: BASE_URL })
-// client
-//   .exchangeInformation()
-//   .then((res) => {
-//     console.log(res)
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
+const BASE_URL = 'https://api.binance.com'
 
 const spot = new Spot(
   process.env.BINANCE_API_KEY,
-  process.env.BINANCE_API_SECRET
-).accountInformation()
-spot.then((res) => {
-  console.log(
-    res.balances.filter((balance) => {
-      const haveFree = +balance.free > 0.0002
-      const haveLocked = +balance.locked > 0.0002
+  process.env.BINANCE_API_SECRET,
+  { baseURL: BASE_URL }
+)
 
-      const haveFreeOrLocked = haveFree || haveLocked
+const getSymbols = async () => {
+  try {
+    const resTicker24hr = await spot.ticker24hr()
 
-      if (haveFreeOrLocked) {
-        return balance
-      }
-    })
-  )
-})
+    if (Array.isArray(resTicker24hr)) {
+      var resTicker24hr2 = resTicker24hr.map((r) => ({
+        symbol: r.symbol,
+        lastPrice: +r.lastPrice
+      }))
+      var symbols = resTicker24hr2.map((r) => r.symbol)
+
+      return symbols
+    }
+  } catch (error) {
+    console.log('🚀 ~ getSymbols ~ error:', error)
+  }
+}
+
+const binanceFun = async () => {
+  try {
+    const symbols = await getSymbols()
+    if (!symbols) {
+      return
+    }
+
+    const resAccountInfo = await spot.accountInformation()
+
+    const balances = resAccountInfo.balances
+      .filter((balance) => {
+        if (!blackListAssets.includes(balance.asset)) {
+          return true
+        }
+      })
+      .map((balance) => {
+        const symbol = `${balance.asset}BTC`
+
+        if (symbols.includes(symbol)) {
+          const promise = spot
+            .currentAveragePrice(`${balance.asset}BTC`)
+            .then((val) => ({
+              asset: balance.asset,
+              qty,
+              val
+            }))
+
+          const qty = +balance.free + +balance.locked
+
+          return promise
+        } else if (
+          +balance.free > 0.0001 ||
+          (+balance.locked > 0.0001 && watchedAssets.includes(balance.asset))
+        ) {
+          console.log('Other watched assets : ', balance)
+
+          return new Promise<{
+            asset: string
+            qty: number
+            val: { price: string }
+          }>((resolve, reject) => {
+            const resolved = {
+              asset: balance.asset,
+              qty: +balance.free + +balance.locked,
+              val: { price: '1' }
+            }
+
+            resolve(resolved)
+          })
+        }
+      })
+
+    const resBalancesWithPrice = await Promise.all(balances)
+
+    const finalAssets = resBalancesWithPrice
+      .filter((r) => {
+        if (!r || !r.qty || blackListAssets.includes(r.asset)) {
+          return false
+        }
+        return true
+      })
+      .map((r) => {
+        let price = r?.val.price && +r?.val.price
+        if (!price) {
+          price = 0
+        }
+
+        return {
+          asset: r?.asset || 'noAsset',
+          qty: r?.qty || 0,
+          price,
+          total: (r?.qty && r.qty * (price || 0)) || 0
+        }
+      })
+
+    console.log('🚀 ~ finalAssets ~ finalAssets:', finalAssets)
+  } catch (error) {
+    console.log('🚀 ~ error:', error)
+  }
+}
+
+// spot.userAsset().then((res) => {
+//   console.log(res)
+// })
+
+binanceFun()
