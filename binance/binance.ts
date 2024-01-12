@@ -2,22 +2,6 @@ import dotenv from 'dotenv'
 import { Spot } from '@binance/connector-typescript'
 dotenv.config()
 
-const watchedAssets = ['USDT', 'USDC', 'DAI', 'BTC']
-const blackListAssets = [
-  'BNB',
-  'XLM',
-  'LSK',
-  'XMR',
-  'IOTA',
-  'EOS',
-  'EDG',
-  'EON',
-  'ADD',
-  'MEETONE',
-  'ATD',
-  'EOP'
-]
-
 const BASE_URL = 'https://api.binance.com'
 
 const spot = new Spot(
@@ -25,6 +9,16 @@ const spot = new Spot(
   process.env.BINANCE_API_SECRET,
   { baseURL: BASE_URL }
 )
+
+const otherWatchedAssets =
+  (process.env.BINANCE_OTHER_WATCHED_ASSETS &&
+    process.env.BINANCE_OTHER_WATCHED_ASSETS.split(' - ')) ||
+  []
+
+const blackListAssets =
+  (process.env.BINANCE_BLACK_LIST &&
+    process.env.BINANCE_BLACK_LIST.split(' - ')) ||
+  []
 
 const getSymbols = async () => {
   try {
@@ -76,7 +70,8 @@ const binanceFun = async () => {
           return promise
         } else if (
           +balance.free > 0.0001 ||
-          (+balance.locked > 0.0001 && watchedAssets.includes(balance.asset))
+          (+balance.locked > 0.0001 &&
+            otherWatchedAssets.includes(balance.asset))
         ) {
           console.log('Other watched assets : ', balance)
 
