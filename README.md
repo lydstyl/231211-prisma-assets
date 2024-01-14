@@ -1,10 +1,10 @@
 # PRISMA ASSETS
 
-Il s'agit d'un script en NodeJS me permettant de centraliser toutes les données de mon patrimoine et d'en extraire des informations standardisées via la création d'un .csv.
+Il s'agit d'un script en NodeJS permettant de centraliser toutes les données d'un patrimoine et d'en extraire des informations standardisées via la création d'un .csv.
 
 La centralisation des informations se fait soit par l'import de fichiers csv, soit via des APIs en fonction des comptes.
 
-Avec la fonctionalité de tableau croisée dynamique d'un tableur + la création de graphique, ce CSV créé me permet de voir la répartition de tous mes actifs :
+La création de tableaux croisés dynamiques et de graphique à partir du CSV généré par cette application permet de voir la répartition des actifs :
 
 - par categorie principale
 - par sous catégorie
@@ -16,13 +16,17 @@ Avec la fonctionalité de tableau croisée dynamique d'un tableur + la création
 - cloner ce repo
 - npm i
 - créer le .env en se basant sur le .env.exemple
-- en cas de base de données vierge, effectuer un migration (voir commande ci-dessous)
+- en cas de base de données vierge, effectuer une migration (voir commande ci-dessous)
 - lancer Prisma Studio
 - commenter / décommenter les features nécessaires dans main.ts et lancer le script via
 - vérifier que les relations sont ok dans Prisma Studio, éventuelement ajouter des nouvelles relations manuelement par exemple entre les sous-categories et les assets
 - une fois que toutes les données sont importés, lancer la création du csv et l'exploiter dans un tableur
 
 # Commandes utiles
+
+## Lancer les tests
+
+- npm test
 
 ## Faire une migration avec Prisma
 

@@ -10,7 +10,6 @@ export const allCategories = [
     subCategories: [
       'liquide',
       'cash en banque',
-      // 'stable coin',
       'cash avant impot', // stable coin, cash de la SCI, etc.
       'autre cash'
     ]

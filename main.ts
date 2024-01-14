@@ -21,16 +21,6 @@ const dbAccountUpdaters = [
     account: 'PEA',
     sourceData: parsePeaCsv
   }
-
-  //////////////////////// todo with API then make unit tests
-  // {
-  //   account: 'Bitstamp',
-  //   sourceData: getDataFromBitstampAPI
-  // },
-  // {
-  //   account: 'Binance',
-  //   sourceData: getDataFromBinanceAPI
-  // },
 ]
 
 ;(async function run() {
