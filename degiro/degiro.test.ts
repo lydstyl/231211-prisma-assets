@@ -66,7 +66,7 @@ const expected = [
 ]
 
 it(
-  'Degiro todo test.',
+  'Degiro csv parser test.',
   async () => {
     const digiroParsedCSV = await parseDegioCSV(
       '/home/gbp2204/Téléchargements/Portfolio.csv'

@@ -28,9 +28,9 @@ const dbAccountUpdaters = [
 ;(async function run() {
   try {
     //////////////////////// STEP 0 TODO WITH AN EMPTY DB OR AVOID THIS STEP
-    // await createOrUpdateAccounts(accountNames)
+    // await createOrUpdateAccounts(accountNames) // todo test
     // // create or update category and subcategories WARNING : this remove manuals connections between assets and sub categories
-    // await createOrUpdateAllCategories(allCategories)
+    // await createOrUpdateAllCategories(allCategories) // todo test
 
     //////////////////////// STEP 1 use dbAccountUpdaters
     // dbAccountUpdaters.forEach(async (dbAccountUpdater) => {
