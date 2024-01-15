@@ -1,6 +1,16 @@
 import { expect, it } from 'vitest'
 import getAssets from './getAssets'
 
+const expected = [
+  'AM.PEA SP500 ESG UCIT ETF EUR',
+  'BTC',
+  'ISHARES PHYSICAL GOLD ETC',
+  'Immeuble (remboursé)',
+  'Liquide',
+  'MACSF',
+  'ROBLOX CORP -CLASS A'
+]
+
 it('There is at least 1 asset in the database.', async () => {
   const assets = await getAssets()
   expect(assets.length).toBeGreaterThan(0)
@@ -12,6 +22,13 @@ it('Assets in database have a name.', async () => {
       asset.name === null || asset.name === undefined || asset.name === ''
   )
   expect(noNameAssets.length).toBe(0)
+})
+it('Expected assets are in the database.', async () => {
+  const assets = await getAssets()
+  const sortedAssets = assets.map((a) => a.name).sort()
+  expected.forEach((item) => {
+    expect(sortedAssets).toContain(item)
+  })
 })
 it('Assets in database have a price.', async () => {
   const assets = await getAssets()
