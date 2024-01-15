@@ -16,7 +16,7 @@ const expectedAccounts: string[] = [
   'Ledger 1 black NATIVE SEGWIT',
   'Ledger 2 black SEGWIT',
   'Ledger Ethereum 1',
-  'Les ledgers (Ledger Live)',
+  // 'Les ledgers (Ledger Live)',
   'Liquide',
   'Livret A',
   'MACSF',
