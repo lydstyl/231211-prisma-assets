@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as csv from 'fast-csv'
 import dotenv from 'dotenv'
-import { StandartRow } from '../degiroCsvParser'
+import { StandartRow } from '../degiro/degiroCsvParser'
 
 dotenv.config()
 

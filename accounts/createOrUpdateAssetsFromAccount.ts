@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { StandartRow } from '../degiroCsvParser'
+import { StandartRow } from '../degiro/degiroCsvParser'
 import { findAccountId } from './findAccountId'
 
 const prisma = new PrismaClient()

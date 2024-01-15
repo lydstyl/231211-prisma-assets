@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as csv from 'fast-csv'
 import dotenv from 'dotenv'
 import path from 'path'
-import { StandartRow } from './degiroCsvParser'
+import { StandartRow } from './degiro/degiroCsvParser'
 import { parseQty } from './pea/peaCSVParser'
 import { PrismaClient } from '@prisma/client'
 

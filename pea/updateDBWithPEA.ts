@@ -1,4 +1,4 @@
-import { StandartRow } from '../degiroCsvParser'
+import { StandartRow } from '../degiro/degiroCsvParser'
 import { removeAllAccountRows } from '../removeAllAccountRows'
 
 export const updateDBWithPEA = async (

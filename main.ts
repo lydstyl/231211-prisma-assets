@@ -1,4 +1,4 @@
-import { parseDegioCSV } from './degiroCsvParser'
+import { parseDegioCSV } from './degiro/degiroCsvParser'
 import { updateDBWithDegiro } from './degiro/updateDBWithDegiro'
 import { createOrUpdateAccounts } from './createOrUpdateAccounts'
 import { accounts as accountNames, allCategories } from './constancies'
@@ -15,11 +15,13 @@ import makeCSVWithAllAccountRows from './makeCSVWithAllAccountRows'
 const dbAccountUpdaters = [
   {
     account: 'Degiro',
-    sourceData: parseDegioCSV
+    sourceData: parseDegioCSV,
+    csvPath: '/home/gbp2204/Téléchargements/Portfolio.csv'
   },
   {
     account: 'PEA',
-    sourceData: parsePeaCsv
+    sourceData: parsePeaCsv,
+    csvPath: '/home/gbp2204/Téléchargements/xxx.csv'
   }
 ]
 
@@ -32,7 +34,9 @@ const dbAccountUpdaters = [
 
     //////////////////////// STEP 1 use dbAccountUpdaters
     // dbAccountUpdaters.forEach(async (dbAccountUpdater) => {
-    //   const standardisedRows = await dbAccountUpdater.sourceData()
+    //   const standardisedRows = await dbAccountUpdater.sourceData(
+    //     dbAccountUpdater.csvPath
+    //   )
     //   await updateDBWithAccount(dbAccountUpdater.account, standardisedRows)
     // })
 

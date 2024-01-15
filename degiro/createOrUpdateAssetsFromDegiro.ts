@@ -1,5 +1,5 @@
 // import { PrismaClient } from '@prisma/client'
-import { StandartRow } from '../degiroCsvParser'
+import { StandartRow } from './degiroCsvParser'
 // import { findAccountId } from '../accounts/findAccountId'
 import createOrUpdateAssetsFromAccount from '../accounts/createOrUpdateAssetsFromAccount'
 
