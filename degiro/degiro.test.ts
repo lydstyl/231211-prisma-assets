@@ -68,10 +68,10 @@ const expected = [
 it(
   'Degiro todo test.',
   async () => {
-    const xxx = await parseDegioCSV(
+    const digiroParsedCSV = await parseDegioCSV(
       '/home/gbp2204/Téléchargements/Portfolio.csv'
     )
-    expect(xxx).toEqual(expected)
+    expect(digiroParsedCSV).toEqual(expected)
   },
   { timeout: 5000 }
 )

@@ -30,23 +30,19 @@ export const parseDegioCSV = (csvPath: string): Promise<StandartRow[]> =>
     if (!csvPath) {
       csvPath = path.resolve(__dirname, 'csv', csvName)
     }
-    console.log('🚀 ~ newPromise ~ csvPath:', csvPath)
     // const csvPath2 = path.resolve(__dirname, 'csv', csvName)
     try {
       fs.createReadStream(csvPath)
         .pipe(csv.parse({ headers: true }))
         .on('error', (error) => {
           console.log('error A')
-
           reject(error)
         })
         .on('data', (row) => {
-          console.log('🚀 ~ .on ~ row:', row)
           rows.push(row)
         })
         .on('end', (rowCount: number) => {
-          console.log('🚀 ~ .on ~ rowCount:', rowCount)
-          const standardised: StandartRow[] = rows.map((row) => {
+          const standardised: StandartRqow[] = rows.map((row) => {
             let price = 1
             let qty = 1
             let id = row['Ticker/ISIN']

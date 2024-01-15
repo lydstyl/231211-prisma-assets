@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import getAccountRows from '../accountRows/getAccountRows'
+import getAccountRows from './getAccountRows'
 
 it('There is at least 1 account row.', async () => {
   const accountRows = await getAccountRows()
