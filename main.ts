@@ -21,7 +21,7 @@ const dbAccountUpdaters = [
   {
     account: 'PEA',
     sourceData: parsePeaCsv,
-    csvPath: '/home/gbp2204/Téléchargements/xxx.csv'
+    csvPath: '/home/gbp2204/Téléchargements/xxx.csv' // todo change so it use this param // todo2 test degiro and pea csv exists
   }
 ]
 
