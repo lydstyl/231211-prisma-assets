@@ -2,9 +2,9 @@ import * as fs from 'fs'
 import * as csv from 'fast-csv'
 import dotenv from 'dotenv'
 import path from 'path'
-import { StandartRow } from './degiro/degiroCsvParser'
-import { parseQty } from './pea/peaCSVParser'
-import { PrismaClient } from '@prisma/client'
+import { StandartRow } from '../degiro/degiroCsvParser'
+import { parseQty } from '../pea/peaCSVParser'
+import prisma from '../prismaInstance'
 
 dotenv.config()
 
@@ -33,7 +33,6 @@ export const parseManualAssetsCSV = (): Promise<StandartRow[]> =>
   })
 
 const updateDBWithManualAssets = async () => {
-  const prisma = new PrismaClient()
   try {
     // parse csv
     const standardisedmanualAssets = await parseManualAssetsCSV()

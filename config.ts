@@ -1,6 +1,4 @@
 import dotenv from 'dotenv'
-import { PrismaClient } from '@prisma/client'
-import { DefaultArgs } from '@prisma/client/runtime/library'
 dotenv.config()
 
 type Environments = {

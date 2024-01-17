@@ -1,6 +1,6 @@
 // import { PrismaClient } from '@prisma/client'
 import { StandartRow } from './degiroCsvParser'
-import removeAllAccountRows from '../removeAllAccountRows'
+import removeAllAccountRows from '../accountRows/removeAllAccountRows'
 
 export const removeAllDegiroAccountRows = async (
   standardisedDegiroRows: StandartRow[]

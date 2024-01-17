@@ -2,9 +2,9 @@ import * as fs from 'fs'
 import * as csv from 'fast-csv'
 import dotenv from 'dotenv'
 import path from 'path'
-import { StandartRow } from './degiro/degiroCsvParser'
-import { parseQty } from './pea/peaCSVParser'
-import { PrismaClient } from '@prisma/client'
+import { StandartRow } from '../degiro/degiroCsvParser'
+import { parseQty } from '../pea/peaCSVParser'
+import prisma from '../prismaInstance'
 
 dotenv.config()
 
@@ -36,7 +36,6 @@ const updateDBWithManualBankAccounts = async () => {
   // parse csv
   const standardisedmanualBankAccounts = await parseManualBankAccountsCSV()
 
-  const prisma = new PrismaClient()
   try {
     // find sub category id of cash en banque
     const dbSubCategory = await prisma.subCategory.findFirst({

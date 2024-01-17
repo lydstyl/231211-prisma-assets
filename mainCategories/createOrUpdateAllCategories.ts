@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client'
-import { AllCategories } from './constancies'
+import prisma from '../prismaInstance'
+
+import { AllCategories } from '../constancies'
 
 export const createOrUpdateAllCategories = async (
   allCategories: AllCategories
 ) => {
-  const prisma = new PrismaClient()
-
   try {
     await prisma.mainCategory.deleteMany()
     await prisma.subCategory.deleteMany()

@@ -1,6 +1,6 @@
 import createOrUpdateAssetsFromAccount from '../accounts/createOrUpdateAssetsFromAccount'
 import { StandartRow } from '../degiro/degiroCsvParser'
-import removeAllAccountRows from '../removeAllAccountRows'
+import removeAllAccountRows from '../accountRows/removeAllAccountRows'
 // import { createOrUpdateAssetsFromDegiro } from './createOrUpdateAssetsFromDegiro'
 // import { removeAllDegiroAccountRows } from './removeAllDegiroAccountRows'
 

@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '../prismaInstance'
 
 export const getSubCategories = async () => {
-  const prisma = new PrismaClient()
   try {
     const res = await prisma.subCategory.findMany()
     await prisma.$disconnect()

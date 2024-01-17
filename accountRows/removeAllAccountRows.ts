@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client'
-import { StandartRow } from './degiro/degiroCsvParser'
+import prisma from '../prismaInstance'
+import { StandartRow } from '../degiro/degiroCsvParser'
 
 export const removeAllAccountRows = async (
   account: string,
   standardisedRows: StandartRow[]
 ) => {
-  const prisma = new PrismaClient()
   try {
     const data = await prisma.accountRow.deleteMany({
       where: {

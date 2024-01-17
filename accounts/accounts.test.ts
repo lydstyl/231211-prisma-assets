@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import getAccounts from './getAccounts'
+import getAccountsBasic from './getAccountsBasic'
 
 const expectedAccounts: string[] = [
   'BNP Perso',
@@ -32,17 +32,17 @@ const expectedAccounts: string[] = [
 ]
 
 it(`There is ${expectedAccounts.length} accounts in databse.`, async () => {
-  const accounts = await getAccounts()
+  const accounts = await getAccountsBasic()
   expect(accounts.length).toBe(expectedAccounts.length)
 })
 it('Expected accounts in lowercase are in database.', async () => {
-  const accounts = await getAccounts()
+  const accounts = await getAccountsBasic()
   expect(accounts.map((account) => account.name.toLowerCase()).sort()).toEqual(
     expectedAccounts.map((account) => account.toLowerCase()).sort()
   )
 })
 it('Expected accounts are in database.', async () => {
-  const accounts = await getAccounts()
+  const accounts = await getAccountsBasic()
   expect(accounts.map((account) => account.name).sort()).toEqual(
     expectedAccounts.map((account) => account).sort()
   )

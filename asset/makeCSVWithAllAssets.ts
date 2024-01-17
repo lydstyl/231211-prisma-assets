@@ -2,7 +2,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { FormatterOptionsArgs, Row, writeToStream } from '@fast-csv/format'
 
-import { GetAssets } from './getAccounts'
+import { GetAssets } from '../accounts/getAccounts'
 
 type AssetsForCSV = {
   sourceId: string | null

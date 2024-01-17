@@ -1,9 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '../prismaInstance'
 import * as path from 'path'
-import * as fs from 'fs'
-import { CsvFile } from './makeCSVWithAllAssets'
-
-const prisma = new PrismaClient()
+import { CsvFile } from '../asset/makeCSVWithAllAssets'
 
 type DBAccountRow = {
   asset: {
