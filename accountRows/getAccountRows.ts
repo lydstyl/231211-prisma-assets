@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '../prismaInstance'
 
 export const getAccountRows = async () => {
-  const prisma = new PrismaClient()
   try {
     const accountRows = await prisma.accountRow.findMany()
     await prisma.$disconnect()
