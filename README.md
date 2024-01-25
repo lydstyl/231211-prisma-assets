@@ -18,8 +18,8 @@ La création de tableaux croisés dynamiques et de graphique à partir du CSV g�
 - créer le .env en se basant sur le .env.exemple
 - en cas de base de données vierge, effectuer une migration (voir commande ci-dessous)
 - lancer Prisma Studio
-- commenter / décommenter les features nécessaires dans main.ts et lancer le script via
-- vérifier que les relations sont ok dans Prisma Studio, éventuelement ajouter des nouvelles relations manuelement par exemple entre les sous-categories et les assets
+- commenter / décommenter les features nécessaires dans main.ts et lancer le script
+- vérifier que les relations sont ok dans Prisma Studio, éventuelement ajouter des nouvelles relations
 - une fois que toutes les données sont importés, lancer la création du csv et l'exploiter dans un tableur
 
 # Commandes utiles

@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
 import currEnvironment from './config'
-console.log('🚀 ~ currEnvironment:', currEnvironment)
 
 if (currEnvironment.envName === 'test') {
   var prisma = new PrismaClient()
