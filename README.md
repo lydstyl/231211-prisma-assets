@@ -14,31 +14,20 @@ La création de tableaux croisés dynamiques et de graphique à partir du CSV g�
 # Quick start
 
 - cloner ce repo
-- npm i
+- `npm i`
 - créer le .env en se basant sur le .env.exemple
 - en cas de base de données vierge, effectuer une migration (voir commande ci-dessous)
-- lancer Prisma Studio
-- commenter / décommenter les features nécessaires dans main.ts et lancer le script
-- vérifier que les relations sont ok dans Prisma Studio, éventuelement ajouter des nouvelles relations
+- lancer `npx prisma studio`
+- lancer les test via `npm test`
+- vérifier que les relations sont ok dans Prisma Studio et éventuelement ajouter des nouvelles relations
+- commenter / décommenter les features nécessaires dans main.ts et lancer le script via `npm start`.
 - une fois que toutes les données sont importés, lancer la création du csv et l'exploiter dans un tableur
 
 # Commandes utiles
 
-## Lancer les tests
-
-- npm test
-
 ## Faire une migration avec Prisma
 
 - npx prisma migrate dev --name nomDeLaMigration
-
-## Lancer Prisma Studio
-
-- npx prisma studio
-
-## Lancer le script
-
-- npx ts-node main.ts
 
 # Todo
 

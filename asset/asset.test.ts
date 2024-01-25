@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import getAssets from './getAssets'
+import getAssets, { getAssets2 } from './getAssets'
 
 const expected = [
   'AM.PEA SP500 ESG UCIT ETF EUR',
@@ -30,7 +30,7 @@ it('Expected assets are in the database.', async () => {
     expect(sortedAssets).toContain(item)
   })
 })
-it('Assets in database have a price.', async () => {
+it('Assets in database have a price greater then 0.', async () => {
   const assets = await getAssets()
   const noPriceAssets = assets.filter(
     (asset) =>
@@ -44,4 +44,11 @@ it('Assets in database have a sub category.', async () => {
     (asset) => asset.subCategoryId === null || asset.subCategoryId === undefined
   )
   expect(noSubCategoryAssets.length).toBe(0)
+})
+it('Assets in database have at least 1 account row.', async () => {
+  const assets = await getAssets2()
+  const noAccountRowAssets = assets.filter(
+    (asset) => asset.accountRows.length === 0
+  )
+  expect(noAccountRowAssets.length).toBe(0)
 })
