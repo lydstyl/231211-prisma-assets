@@ -28,8 +28,3 @@ La création de tableaux croisés dynamiques et de graphique à partir du CSV g�
 ## Faire une migration avec Prisma
 
 - npx prisma migrate dev --name nomDeLaMigration
-
-# Todo
-
-- regler le problème des montants au format anglais dans le csv exemple 12.34 au lieu de 12,34 pour que ça fonctionne bien dans un tableur.
-- créer des tests unitaires

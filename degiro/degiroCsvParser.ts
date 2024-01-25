@@ -42,7 +42,7 @@ export const parseDegioCSV = (csvPath: string): Promise<StandartRow[]> =>
           rows.push(row)
         })
         .on('end', (rowCount: number) => {
-          const standardised: StandartRqow[] = rows.map((row) => {
+          const standardised: StandartRow[] = rows.map((row) => {
             let price = 1
             let qty = 1
             let id = row['Ticker/ISIN']
